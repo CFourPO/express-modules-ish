@@ -3,7 +3,7 @@ import Bookmark from '../bookmark/bookmark';
 
 let categorySchema = new mongoose.Schema({
     name: {type: String, required: true },
-    children: [Bookmark.schema]
+    children: [String]
 }, {
     timestamps: true,
     minimize: false

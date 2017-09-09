@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 let bookmarkSchema = new mongoose.Schema({
     name: {type: String, required: true },
     url: {type: String, required: true },
-    category: String
+    category: [String],
+    
 }, {
     timestamps: true
 });

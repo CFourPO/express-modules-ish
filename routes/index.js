@@ -13,6 +13,7 @@ router.post('/bookmark', bookmarkController.insert);
 router.get('/category', categoryController.selectAll);
 router.get('/category/:id', categoryController.selectById);
 router.post('/category', categoryController.insert);
+router.put('/category', categoryController.addChild);
 // router.use('/bookmark', bookmarkController);
 
 // router.use('/user', userController);

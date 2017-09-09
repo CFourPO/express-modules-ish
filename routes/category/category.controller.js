@@ -1,12 +1,15 @@
 import mongoose from 'mongoose';
 import express from 'express';
+import Bookmark from '../bookmark/bookmark';
 import Category from './category';
 
 exports.selectAll = (req, res, next) => {
     Category.find({}, (err, results) => {
         if (err) next(err);
 
-        res.status(200).json({data: results});
+        res.status(200).json({
+            data: results
+        });
     });
 };
 
@@ -14,8 +17,47 @@ exports.selectById = (req, res, next) => {
     Category.findById(req.params['id']).exec((err, results) => {
         if (err) next(err);
 
-        res.status(200).json({data: results});
-    })
+        res.status(200).json({
+            data: results
+        });
+    });
+}
+
+const appendBookmark = (category, bookId) => {
+    return new Promise((resolve, reject) => {
+        if (category.children.indexOf(bookId) < 0) {
+            // reject("Bookmark is already included in this category");
+            category.children.push(bookId);
+        } else {
+            console.log("bookmark has already been included in this category");
+        }
+
+        resolve(category);
+    });
+};
+
+exports.addChild = (req, res, next) => {
+    let catName = req.body.name,
+        bookName = req.body.bookName;
+
+
+    let query = Category.findOne({
+        name: catName
+    }).exec();
+
+    query.then(category => {
+        if (category.children.indexOf(bookName) < 0) {
+            category.children.push(bookName);
+        }
+        return category;
+    }).then(data => {
+        data.save((err, result) => {
+            if (err) next(err);
+            res.status(200).json({
+                data: result
+            });
+        });
+    });
 }
 
 exports.insert = (req, res, next) => {
@@ -23,7 +65,9 @@ exports.insert = (req, res, next) => {
     category.save({}, (err, results) => {
         if (err) next(err);
 
-        res.status(200).json({data: results});
+        res.status(200).json({
+            data: results
+        });
     })
 }
 
