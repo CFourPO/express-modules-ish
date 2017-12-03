@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import bookmarkController from './bookmark/bookmark.controller';
 import categoryController from './category/category.controller';
 import userController from './user/user.controller';
+import listController from './lists/list.controller';
 
 const router = express.Router();
 
@@ -16,7 +17,14 @@ router.post('/category', categoryController.insert);
 router.put('/category', categoryController.addChild);
 // router.use('/bookmark', bookmarkController);
 
-// router.use('/user', userController);
+router.get('/user', userController.selectAll);
+router.get('/user/:id', userController.selectById);
+router.post('/user', userController.insert);
+
+router.get('/list', listController.selectAll);
+router.get('/list/:id', listController.selectById);
+router.post('/list', listController.insert);
+router.put('/list', listController.addItem);
 
 /* GET index page. */
 router.get('/', (req, res, next) => {

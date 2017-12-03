@@ -6,6 +6,7 @@ import logger from 'morgan';
 // import favicon from 'serve-favicon';
 import path from 'path';
 import mongoose from 'mongoose';
+import cors from 'cors';
 
 import index from './routes/index';
 
@@ -31,6 +32,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
+app.use(cors());
 
 app.use(cookieParser());
 

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-let schema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     username: { type: String, required: true },
@@ -8,6 +8,6 @@ let schema = new mongoose.Schema({
     dateCreated: {type: Date, default: Date.now }
 });
 
-let User = mongoose.model('user', schema);
+let User = mongoose.model('User', userSchema);
 
 export default User;
