@@ -60,8 +60,16 @@ exports.addItem = (req, res, next) => {
     //     "url": req.body.item.url,
     //     "addedBy": req.body.item.addedBy._id
     // } 
+    // 
+    
+    // -------------------------------------------------------
+    // WishList.findByIdAndUpdate(req.body.lid, (err, list) => {
+
+    // })
+
+
     WishList
-        .findOneAndUpdate({"name": "Wishlist 1"}, {$push: {"items": item._id}})
+        .findByIdAndUpdate(`${req.body.list._id}`, {new: true}, {$push: {"items": item._id}})
         .populate("ownedBy")
         .populate("items")
         // .populate("items.addedBy")
@@ -77,10 +85,10 @@ exports.addItem = (req, res, next) => {
             console.log("ITEM", req.body.item);
             
      
-                         res.status(200).json({
-                        message: 'Success',
-                        data: list
-                    });
+            res.status(200).json({
+                message: 'Success',
+                data: list
+            });
 
             // list.items.set({$push: {"items": item._id}}).exec(
             //     (err2, updatedList) => {

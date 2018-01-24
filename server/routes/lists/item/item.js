@@ -5,7 +5,7 @@ let itemSchema = new mongoose.Schema({
         name: String,
         url: String
     }, {
-    timestamps: true,
+    timestamps: true, 
     minimize: false
 });
 
